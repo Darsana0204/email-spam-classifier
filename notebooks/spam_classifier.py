@@ -42,3 +42,8 @@ from sklearn.naive_bayes import MultinomialNB
 model=MultinomialNB()
 model.fit(X_train_tfidf, y_train)
 print("\nModel trained successfully.")
+
+from sklearn.metrics import accuracy_score
+y_pred= model.predict(X_test_tfidf)
+accuracy= accuracy_score(y_test, y_pred)
+print("\nAccuracy:", accuracy)
