@@ -53,3 +53,14 @@ cm= confusion_matrix(y_test, y_pred)
 print("\nConfusion Matrix:")
 print(cm)
 
+from sklearn.metrics import classification_report
+print("\nClassification report:")
+print(classification_report(y_test, y_pred))
+
+import pickle
+with open("model.pkl","wb") as file:
+    pickle.dump(model, file)
+
+with open("vectorizer.pkl","wb") as file:
+    pickle.dump(vectorizer, file)
+print("\nModel and Vectorizer Saved!")
