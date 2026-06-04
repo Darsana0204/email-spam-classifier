@@ -30,7 +30,7 @@ print("\nTraining samples", len(X_train))
 print("Training samples:", len(X_test))
 
 from sklearn.feature_extraction.text import TfidfVectorizer
-vectorizer = TfidfVectorizer()
+vectorizer = TfidfVectorizer(stop_words='english')
 X_train_tfidf = vectorizer.fit_transform(X_train)
 X_test_tfidf= vectorizer.transform(X_test)
 print("\nTraining matrix Shape:")
