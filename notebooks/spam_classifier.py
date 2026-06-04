@@ -37,3 +37,8 @@ print("\nTraining matrix Shape:")
 print(X_train_tfidf.shape)
 print("\nTesting matrix Shape:")
 print(X_test_tfidf.shape)
+
+from sklearn.naive_bayes import MultinomialNB
+model=MultinomialNB()
+model.fit(X_train_tfidf, y_train)
+print("\nModel trained successfully.")
