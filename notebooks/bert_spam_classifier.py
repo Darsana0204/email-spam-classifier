@@ -1,4 +1,13 @@
 import pandas as pd
+import numpy as np
+from sklearn.metrics import accuracy_score
+def compute_metrics(eval_pred):
+    predictions, labels= eval_pred
+    predictions= np.argmax(predictions, axis=1)
+    accuracy=accuracy_score(labels, predictions)
+    return{
+        "accuracy": accuracy
+    }
 
 df= pd.read_csv("data/spam.csv", encoding="latin-1")
 df=df[['v1','v2']]
@@ -50,3 +59,26 @@ print(len(test_dataset))
 from transformers import AutoModelForSequenceClassification
 model= AutoModelForSequenceClassification.from_pretrained("distilbert-base-uncased", num_labels=2)
 print("DistilBERT model loaded successfully")
+
+from transformers import TrainingArguments
+training_args= TrainingArguments(output_dir="./results",eval_strategy="epoch", save_strategy="epoch", num_train_epochs=1, per_device_train_batch_size=8, per_device_eval_batch_size=8, logging_dir="./logs")
+print("Training arguements configured")
+
+from transformers import Trainer
+trainer= Trainer( model=model, args= training_args, train_dataset= train_dataset, eval_dataset= test_dataset, compute_metrics= compute_metrics)
+print("Trainer created successfully")
+
+print("Starting training...")
+trainer.train()
+print("Training completed")
+
+results= trainer.evaluate()
+print(results)
+
+print("\nEvaluation results:")
+for key, value in results.items():
+    print(f"{key}: {value}")
+
+trainer.save_model("./bert_spam_model")
+tokenizer.save_pretrained("./bert_spam_model")
+print("Model saved successfully")
