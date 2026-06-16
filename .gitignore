@@ -4,3 +4,9 @@ __pycache__/
 .ipynb_checkpoints/
 results/
 logs/
+results/
+bert_spam_model/
+model/
+models/bert_spam_model/
+predict_bert.py
+save_bert_model.py
