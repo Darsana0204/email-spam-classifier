@@ -11,4 +11,6 @@ def predict_spam(message):
     result= model.predict(text)
     return "Spam" if result[0]== 1 else "Ham"
 
-    
+message = input("Enter a message: ") 
+prediction= predict_spam(message)
+print(f"\nPrediction: {prediction}")   
